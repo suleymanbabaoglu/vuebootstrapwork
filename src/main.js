@@ -1,5 +1,8 @@
 import Vue from "vue";
 import App from "./App.vue";
+import Axios from "axios";
+import VueAxios from "vue-axios";
+import { store } from "./store/store";
 
 import "jquery/src/jquery";
 import "jquery-ui/ui/jquery-1-7";
@@ -16,7 +19,26 @@ import "../public/assets/plugins/jvectormap/jquery-jvectormap-world-mill-en";
 import "../public/assets/bower_components/jquery-knob/dist/jquery.knob.min";
 import "../public/assets/bower_components/jquery-slimscroll/jquery.slimscroll.min";
 
+Vue.use(VueAxios, Axios);
+
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!store.state.isAuthenticated) {
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath },
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount("#app");
