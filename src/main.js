@@ -21,13 +21,13 @@ import "../public/assets/bower_components/jquery-slimscroll/jquery.slimscroll.mi
 
 Vue.use(VueAxios, Axios);
 
-
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!store.state.isAuthenticated) {
+  store.dispatch("isSignedIn");
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters["getAuth"]) {
       next({
         path: "/login",
-        query: { redirect: to.fullPath },
+        query: { redirect: to.fullPath }
       });
     } else {
       next();

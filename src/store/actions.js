@@ -12,26 +12,16 @@ let firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 export const isSignedIn = ({ commit }) => {
-  firebase.auth().onAuthStateChanged(function(user) {
+  firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      // User is signed in.
-      /* var displayName = user.displayName;
-            var email = user.email;
-            var emailVerified = user.emailVerified;
-            var photoURL = user.photoURL;
-            var isAnonymous = user.isAnonymous;
-            var uid = user.uid;
-            var providerData = user.providerData;*/
-      // ...
       commit("setAuth");
     } else {
-      // User is signed out.
       commit("clearAuth");
     }
   });
 };
 
-export const login = ({ commit }, payload) => {
+export const login = ({ commit, state }, payload) => {
   firebase
     .auth()
     .signInWithEmailAndPassword(payload.email, payload.password)
@@ -73,4 +63,9 @@ export const register = ({}, payload) => {
       let errorMessage = error.message;
       // ...
     });
+};
+
+export const addUser = ({}) => {
+  let db = firebase.database;
+  db.ref("vuebootstrapwork").set({ username: "sss", email: "sss@sss.com" });
 };

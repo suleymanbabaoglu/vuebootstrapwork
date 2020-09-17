@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import Users from "./pages/Users";
 
 Vue.use(VueRouter);
 
@@ -13,7 +14,7 @@ export const routes = [
     path: "/",
     component: HomeLayout,
     meta: { requiresAuth: true },
-    children: [{ path: "/", component: Home }]
+    children: [{ path: "/", component: Home },{ path: "/users", component: Users },]
   },
   { path: "/login", component: Login, meta: { requiresAuth: false } },
   { path: "/register", component: Register, meta: { requiresAuth: false } },

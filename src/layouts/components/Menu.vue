@@ -2,7 +2,14 @@
   <ul class="sidebar-menu" data-widget="tree">
     <li class="header">MAIN NAVIGATION</li>
     <li class="active">
-      <a href="index.html"><i class="fa fa-dashboard"></i> Dashboard</a>
+      <router-link to="/">
+        <a><i class="fa fa-dashboard"></i> Dashboard</a>
+      </router-link>
+    </li>
+    <li>
+      <router-link to="users">
+        <a><i class="fa fa-users"></i> Users</a>
+      </router-link>
     </li>
     <li class="treeview">
       <a href="#">
